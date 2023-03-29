@@ -25,9 +25,7 @@ jobs:
           curl -sL https://firebase.tools | bash
           firebase --version
       - name: Firebase Login
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          token: ${{ env.FIREBASE_TOKEN }}
+        run: firebase login:ci --no-localhost --interactive
 
       - name: Firebase Use
         run: |
