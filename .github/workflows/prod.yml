@@ -7,6 +7,7 @@ on:
     types: [closed]
     branches:
       - main
+      - dev
       
 env:
   FIREBASE_PROJECT_ID: cicd-test-prod
