@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - run: 'npm ci && npm run build:prod'
       - name: Install Firebase CLI
         run: |
           curl -sL https://firebase.tools | bash
@@ -27,7 +27,7 @@ jobs:
 
       - name: Firebase Login
         run: firebase login:ci --no-localhost --interactive
-
+      
       - name: Firebase Use
         run: |
           firebase use --add ${{ env.FIREBASE_PROJECT_ID }}
