@@ -9,7 +9,6 @@ on:
       - main
       
 env:
-  FIREBASE_TOKEN: 1//0gJU5IjREaV6iCgYIARAAGBASNwF-L9Ir7gum06JHNLeO4qgmmU9ucE__C_KZADWMgeoRTzCM2YyFkU2CxQs7mvbpQP92jQOObEw
   FIREBASE_PROJECT_ID: cicd-test-prod
   FIREBASE_ENVIRONMENT: cicd-test-prod
 
@@ -19,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - run: npm ci && npm run build:prod
       - name: Install Firebase CLI
         run: |
           curl -sL https://firebase.tools | bash
