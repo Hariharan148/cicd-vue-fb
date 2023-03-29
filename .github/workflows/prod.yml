@@ -9,12 +9,14 @@ on:
       - main
       
 env:
-  FIREBASE_TOKEN: 1//0gJU5IjREaV6iCgYIARAAGBASNwF-L9Ir7gum06JHNLeO4qgmmU9ucE__C_KZADWMgeoRTzCM2YyFkU2CxQs7mvbpQP92jQOObEw
   FIREBASE_PROJECT_ID: cicd-test-prod
   FIREBASE_ENVIRONMENT: cicd-test-prod
+  FIREBASE_PROJECT_ID_DEV: cicd-test-dev-b73fa
+  FIREBASE_ENVIRONMENT_DEV: cicd-test-dev-b73fa
 
 jobs:
-  deploy:
+  deploy_prod:
+    if: github.base_ref == 'main' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -37,4 +39,27 @@ jobs:
         run: |
           firebase deploy --only hosting --project ${{ env.FIREBASE_PROJECT_ID }} --message "Deployed from GitHub Actions"
 
+  deploy_dev:
+    if: github.base_ref == 'dev' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: 'npm ci && npm run build:dev'
+      - name: Install Firebase CLI
+        run: |
+          curl -sL https://firebase.tools | bash
+          firebase --version
+
+      - name: Firebase Login
+        run: firebase login:ci --no-localhost --interactive
+      
+      - name: Firebase Use
+        run: |
+          firebase use --add ${{ env.FIREBASE_PROJECT_ID_DEV }}
+          firebase use ${{ env.FIREBASE_ENVIRONMENT_DEV }}
+      
+      - name: Firebase Deploy
+        run: |
+          firebase deploy --only hosting --project ${{ env.FIREBASE_PROJECT_ID_DEV }} --message "Deployed from GitHub Actions"
 
