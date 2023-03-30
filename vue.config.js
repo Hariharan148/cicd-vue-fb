@@ -3,10 +3,10 @@ module.exports = defineConfig({
   transpileDependencies: ["vuetify"],
 });
 
-const Dotenv = require("dotenv-webpack");
+// const Dotenv = require("dotenv-webpack");
 
-module.exports = {
-  configureWebpack: {
-    plugins: [new Dotenv()],
-  },
-};
+// module.exports = {
+//   configureWebpack: {
+//     plugins: [new Dotenv()],
+//   },
+// };
