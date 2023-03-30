@@ -19,6 +19,7 @@ jobs:
     if: github.base_ref == 'main'
     runs-on: ubuntu-latest
     env:
+      NODE_ENV: ${{ secrets.NODE_ENV }}
       FIREBASE_API_KEY_PROD: ${{ secrets.FIREBASE_API_KEY_PROD }}
       FIREBASE_AUTH_DOMAIN_PROD: ${{ secrets.FIREBASE_AUTH_DOMAIN_PROD }}
       FIREBASE_PROJECT_ID_PROD: ${{ secrets.FIREBASE_PROJECT_ID_PROD }}
