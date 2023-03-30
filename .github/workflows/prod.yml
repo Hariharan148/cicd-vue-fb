@@ -15,18 +15,21 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-  
+
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci && npm run build:prod
-      - name: Firebase Use
-        run: |
-          firebase use --add ${{ env.FIREBASE_PROJECT_ID }}
-          firebase use ${{ env.FIREBASE_ENVIRONMENT }}
-      - name: Deploy to Firebase
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:PROD
+      - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only hosting --project ${{ env.FIREBASE_PROJECT_ID }}
         env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-        
+          FIREBASE_ENVIRONMENT: ${{ env.FIREBASE_ENVIRONMENT }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
