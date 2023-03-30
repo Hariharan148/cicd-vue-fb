@@ -35,6 +35,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build:prod
+      - name: Debug
+        run: echo ${{ env.FIREBASE_PROJECT_ID_PROD }}
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
