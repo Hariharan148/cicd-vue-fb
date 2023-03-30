@@ -15,10 +15,14 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+  
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build:prod
+      - name: Firebase Use
+        run: |
+          firebase use --add ${{ env.FIREBASE_PROJECT_ID }}
+          firebase use ${{ env.FIREBASE_ENVIRONMENT }}
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
