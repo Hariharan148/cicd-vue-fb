@@ -10,9 +10,7 @@ on:
       - dev
       
 env:
-  FIREBASE_PROJECT_ID_PROD: cicd-test-prod
   FIREBASE_ENVIRONMENT_PROD: cicd-test-prod
-  FIREBASE_PROJECT_ID_DEV: cicd-test-dev-b73fa
   FIREBASE_ENVIRONMENT_DEV: cicd-test-dev
 
 jobs:
