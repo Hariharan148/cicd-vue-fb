@@ -12,6 +12,7 @@ on:
 env:
   FIREBASE_ENVIRONMENT_PROD: cicd-test-prod
   FIREBASE_ENVIRONMENT_DEV: cicd-test-dev
+  FIREBASE_PROJECT_ID_PROD: ${{ secrets.FIREBASE_PROJECT_ID_PROD }}
 
 jobs:
   prod:
